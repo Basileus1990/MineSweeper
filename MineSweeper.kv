@@ -1,0 +1,46 @@
+<MainWidget>:
+    orientation: 'vertical'
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: 0.9, 0.9, 0.9, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        orientation: 'horizontal'
+        size_hint_y: None
+        height: 60
+
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0 ,1, 0, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            text: '000'
+
+            font_size: 40
+            size_hint: None, None
+            size: self.texture_size
+            pos: 20, self.parent.center[1] - (self.height/2)
+        Button:
+            pos: self.parent.center[0] - self.width/2, self.parent.center[1] - (self.height/2)
+            text: 'R'
+            font_size: 40
+            size_hint: None, None
+            size: 40, 40
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0 ,0, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            text: '000'
+            font_size: 40
+            size_hint: None, None
+            size: self.texture_size
+            pos: self.parent.right - self.width - 20, self.parent.center[1] - (self.height/2)
+    BoxLayout:
