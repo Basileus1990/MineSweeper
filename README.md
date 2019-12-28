@@ -2,5 +2,5 @@
 Just minesweeper
 
 TO DO:
-- Basic interface
+- create time and amount of tiles logic(number of bombs, size of game)
 - Create tiles and match proper objects to them
