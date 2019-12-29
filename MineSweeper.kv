@@ -54,15 +54,18 @@
             size: self.texture_size[0] + 10, self.texture_size[1]
             pos: self.parent.right - self.width - 20, self.parent.center[1] - (self.height/2)
 
+        # Settings button with dropdown list
         Button:
             id: SettingsButton
-            pos: self.parent.width / 4 - self.width / 2, self.parent.center[1] - (self.height/2)
+            pos: 120, self.parent.center[1] - (self.height/2)
             text: 'Settings'
             font_size: 30
             size_hint: None, None
             size: self.texture_size[0] + 10, 40
 
     BoxLayout:
+        orientation: 'vertical'
+        id: Game_Panel
 
 
 <SettingsDropDownList>:
@@ -72,16 +75,23 @@
         font_size: 20
         size_hint_y: None
         height: 30
-        on_release: root.change_difficulty(self)
+        on_release: root.change_difficulty(self.text)
     Button:
         text: 'Normal'
         font_size: 20
         size_hint_y: None
         height: 30
-        on_release: root.change_difficulty(self)
+        on_release: root.change_difficulty(self.text)
     Button:
         text: 'Hard'
         font_size: 20
         size_hint_y: None
         height: 30
-        on_release: root.change_difficulty(self)
+        on_release: root.change_difficulty(self.text)
+
+
+<Tile>:
+    Image:
+        source: 'Images\\NTile.png'
+        size: self.parent.size
+        pos: self.parent.pos

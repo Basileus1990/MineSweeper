@@ -1,21 +1,24 @@
+# disabling resizing
+from kivy.config import Config
+Config.set('graphics', 'resizable', 0)
+
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.dropdown import DropDown
 from kivy.properties import StringProperty
+from kivy.properties import NumericProperty
+from Classes.Game import Game
 
 
 class SettingsDropDownList(DropDown):
-
-    # Keys are assigned ammount of boms
-    difficulty_settings = {'Easy': '020', 'Normal': '040', 'Hard': '060'}
-
-    def change_difficulty(self, button):
-        main_widget.number_of_bombs = self.difficulty_settings[button.text]
+    def change_difficulty(self, key):
+        main_widget.game.change_difficulty(key)
 
 
 class MainWidget(BoxLayout):
 
-    number_of_bombs = StringProperty('020')
+    number_of_bombs = StringProperty()
+    size_of_game = NumericProperty(20)  # Repair this the future
 
     def __init__(self, **kwargs):
         super(MainWidget, self).__init__(**kwargs)
@@ -24,6 +27,14 @@ class MainWidget(BoxLayout):
         s_button = self.ids.SettingsButton
         dropdown = SettingsDropDownList()
         s_button.bind(on_release=dropdown.open)
+
+        # Game is created
+        self.game = Game(self)
+
+        # Sets difficulty to easy as default
+        self.game.change_difficulty('Easy')
+
+        self.game.add_tiles()
 
 
 class MineSweeperApp(App):
