@@ -25,16 +25,16 @@ class MainWidget(BoxLayout):
 
         # Adding Drop down list for settings
         s_button = self.ids.SettingsButton
-        dropdown = SettingsDropDownList()
-        s_button.bind(on_release=dropdown.open)
+        self.dropdown = SettingsDropDownList()
+        s_button.bind(on_release=self.dropdown.open)
+        self.dropdown.bind(on_select=lambda
+                           instance, x: setattr(s_button, 'text', x))
 
         # Game is created
         self.game = Game(self)
 
-        # Sets difficulty to easy as default
-        self.game.change_difficulty('Easy')
-
-        self.game.add_tiles()
+    def restart_game(self):
+        self.game.restart_game()
 
 
 class MineSweeperApp(App):
