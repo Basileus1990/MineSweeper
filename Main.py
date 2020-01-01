@@ -1,6 +1,7 @@
 # disabling resizing
 from kivy.config import Config
 Config.set('graphics', 'resizable', 0)
+Config.set('input', 'mouse', 'mouse,disable_multitouch')
 
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
