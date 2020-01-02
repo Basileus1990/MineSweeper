@@ -19,7 +19,7 @@ class SettingsDropDownList(DropDown):
 class MainWidget(BoxLayout):
 
     number_of_bombs = StringProperty()
-    size_of_game = NumericProperty(20)  # Repair this the future
+    size_of_game = NumericProperty()
 
     def __init__(self, **kwargs):
         super(MainWidget, self).__init__(**kwargs)
