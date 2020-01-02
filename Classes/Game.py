@@ -5,9 +5,6 @@ import random
 
 
 class Game:
-
-    difficulty = ''
-
     def __init__(self, main_widget):
         self.main_widget = main_widget
         self.tile_size = 30
