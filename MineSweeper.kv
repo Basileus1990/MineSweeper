@@ -12,6 +12,7 @@
             Rectangle:
                 pos: self.pos
                 size: self.size
+                source: 'Images/Background.png'
         orientation: 'horizontal'
         size_hint_y: None
         height: 60
@@ -29,7 +30,7 @@
             font_size: 40
             size_hint: None, None
             size: self.texture_size[0] + 10, self.texture_size[1]
-            pos: 20, self.parent.center[1] - (self.height/2)
+            pos: self.parent.right - self.width - 20, self.parent.center[1] - (self.height/2)
 
         # Restart Button
         Button:
@@ -38,35 +39,56 @@
             font_size: 40
             size_hint: None, None
             size: 40, 40
-            on_release: root.restart_game()
-
-        # Shows current time of game
-        Label:
-            canvas.before:
-                Color:
-                    rgba: 0.2 , 0.2, 0.2, 1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-
-            text: '000'
-            font_size: 40
-            size_hint: None, None
-            size: self.texture_size[0] + 10, self.texture_size[1]
-            pos: self.parent.right - self.width - 20, self.parent.center[1] - (self.height/2)
+            on_release: root.game.restart_game()
 
         # Settings button with dropdown list
         Button:
             id: SettingsButton
-            pos: 120, self.parent.center[1] - (self.height/2)
+            pos: 20, self.parent.center[1] - (self.height/2)
             text: 'Settings'
             font_size: 30
             size_hint: None, None
             size: self.texture_size[0] + 10, 40
+    FloatLayout:
+        BoxLayout:
+            orientation: 'vertical'
+            id: Game_Panel
 
-    BoxLayout:
-        orientation: 'vertical'
-        id: Game_Panel
+        # lose label
+        Label:
+            id: Lose_Label
+            canvas.before:
+                Color:
+                    rgba: 0.9, 0.9, 0.9, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: 'Images/Background.png'
+            opacity: 0
+            pos: self.parent.center[0] - self.width / 2,self.parent.size[1] - self.size[1] + 3
+            size_hint: None, None
+            font_size: 40
+            text: 'YOU LOSE!!!'
+            color: 0, 0, 0, 1
+            size: self.texture_size[0] + 30, self.texture_size[1] + 20
+
+        # Win label
+        Label:
+            id: Win_Label
+            canvas.before:
+                Color:
+                    rgba: 0.9, 0.9, 0.9, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: 'Images/Background.png'
+            opacity: 0
+            pos: self.parent.center[0] - self.width / 2,self.parent.size[1] - self.size[1] + 3
+            size_hint: None, None
+            font_size: 40
+            text: 'YOU WIN!!! Congrats!'
+            color: 0, 0, 0, 1
+            size: self.texture_size[0] + 30, self.texture_size[1] + 20
 
 
 <SettingsDropDownList>:

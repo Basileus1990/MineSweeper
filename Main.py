@@ -34,9 +34,6 @@ class MainWidget(BoxLayout):
         # Game is created
         self.game = Game(self)
 
-    def restart_game(self):
-        self.game.restart_game()
-
 
 class MineSweeperApp(App):
     def build(self):

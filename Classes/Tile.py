@@ -15,10 +15,11 @@ class Tile(Button):
 
     img_path = StringProperty(img_dic_paths['N'])  # default img path
 
-    def __init__(self, game, **kwargs):
+    def __init__(self, game, pos, **kwargs):
         super(Tile, self).__init__(**kwargs)
         self.game = game
         self.true_indentity = '0'
+        self.positon = pos
 
     def set_true_indentity(self, indentity):
         self.true_indentity = indentity
@@ -26,12 +27,48 @@ class Tile(Button):
     def on_touch_down(self, touch):
         if(self.collide_point(*touch.pos)):
             if(touch.button == 'left'):
+                if(self.img_path[7] == 'P'):
+                    return
+                elif(self.true_indentity == 'B'):  # Lose conditon
+                    self.game.main_widget.ids.Lose_Label.opacity = 1
+                    self.game.expose_all_tiles()
+                    return
+
                 self.expose_indentity()
+                if(self.true_indentity == '0'):
+                    self.game.seek_for_other_0tiles(self.positon)
+
             elif(touch.button == 'right'):
                 if(self.img_path[7] == 'N'):
                     self.img_path = self.img_dic_paths['P']
-                else:
+                    self.change_number_of_bombs(-1)
+                    self.change_well_placed_bombs(1)
+
+                elif(self.img_path[7] == 'P'):
                     self.img_path = self.img_dic_paths['N']
+                    self.change_number_of_bombs(1)
+                    self.change_well_placed_bombs(-1)
 
     def expose_indentity(self):
         self.img_path = self.img_dic_paths[self.true_indentity]
+
+    # adds how_change to number_of_bombs and fromats it
+    def change_number_of_bombs(self, how_change):
+        n = ''
+        if('-' in self.game.main_widget.number_of_bombs):
+            n = self.game.main_widget.number_of_bombs.split('-')[1]
+            n = str((int(n) - int(n) * 2) + how_change)
+        else:
+            n = str(int(self.game.main_widget.number_of_bombs) + how_change)
+        for i in range(3 - n.__len__()):
+            n = '0' + n
+        self.game.main_widget.number_of_bombs = n
+
+    def change_well_placed_bombs(self, how_change):
+        if(self.true_indentity == 'B'):
+            self.game.well_placed_bombs += how_change
+            if(self.game.well_placed_bombs ==
+                    self.game.original_number_of_bombs and
+                    self.game.main_widget.number_of_bombs == 0):  # Win condito
+                self.game.main_widget.ids.Win_Label.opacity = 1
+                self.game.expose_all_tiles()
