@@ -6,8 +6,6 @@ import random
 
 class Game:
 
-    difficulty = ''
-
     def __init__(self, main_widget):
         self.main_widget = main_widget
         self.tile_size = 30
@@ -116,7 +114,7 @@ class Game:
                 if([j, k] == pos):
                     continue
                 try:
-                    if(self.tiles[j][k].img_path[7] == 'N'):
+                    if(self.tiles[j][k].img_path[-9] == 'N'):
                         self.tiles[j][k].expose_indentity()
                         if(self.tiles[j][k].true_indentity == '0'):
                             self.seek_for_other_0tiles([j, k])
